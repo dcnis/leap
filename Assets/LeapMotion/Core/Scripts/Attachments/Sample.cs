@@ -31,17 +31,20 @@ public class Sample : MonoBehaviour {
 			getHandsfromFrame (frame);
 			getHandsfromPreviousFrame (previous);
 					
-			if (punchIsThrown(leftHand, rightHand) && !punchIsThrown (leftHandPreviousFrame, rightHandPreviousFrame) && (punchForwardLeft() || punchForwardRight ())) {
-					if (leftHand.PalmPosition.z < rightHand.PalmPosition.z) {
-						Debug.Log ("JAB!!!");
-						return;
-					} else {
-						Debug.Log ("CROSS!!!");
-						return;
+			if ((leftHandPreviousFrame != null) && (rightHandPreviousFrame != null)){
+				if (punchIsThrown(leftHand, rightHand) && !punchIsThrown (leftHandPreviousFrame, rightHandPreviousFrame)) {
+					if((punchForwardLeft() || punchForwardRight ())){
+						if (leftHand.PalmPosition.z < rightHand.PalmPosition.z) {
+							Debug.Log ("JAB!!!");
+							return;
+						} else {
+							Debug.Log ("CROSS!!!");
+							return;
+						}
 					}
-				} 
-					
 
+				}
+			}
 				
 		}
 	}

@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets\LeapMotion\Core\Scripts\HandPool.cs" Line="1" Column="1" />
       <File FileName="Assets\LeapMotion\Core\Scripts\LeapServiceProvider.cs" Line="1" Column="1" />
-      <File FileName="Assets\LeapMotion\Core\Scripts\Attachments\Sample.cs" Line="66" Column="2" />
+      <File FileName="Assets\LeapMotion\Core\Scripts\Attachments\Sample.cs" Line="41" Column="31" />
       <File FileName="Assets\LeapMotion\Core\Scripts\Hands\HandEnableDisable.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

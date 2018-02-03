@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CombinationManagerScript.cs" />
      <Compile Include="Assets\fantasySpider\FSP_ContinuousRotation.cs" />
      <Compile Include="Assets\LeapMotion\Core\Scripts\Algorithms\SlidingMax.cs" />
      <Compile Include="Assets\LeapMotion\Core\Scripts\Algorithms\SmoothedFloat.cs" />
@@ -278,6 +279,7 @@
      <None Include="Assets\LeapMotion\Core\Dependencies.txt" />
      <None Include="Assets\Skinner\Shader\ReplacementPosition.shader" />
      <None Include="Assets\LeapMotion\Core\Resources\ThresholdOverlay.shader" />
+     <None Include="Assets\Assets\combinationNumbers.txt" />
      <None Include="Assets\Skinner\Shader\TrailSurface.shader" />
      <None Include="Assets\Skinner\Shader\ParticleSurfaceStandard.shader" />
      <None Include="Assets\LeapMotion\Core\Resources\PassthroughForeground.shader" />
