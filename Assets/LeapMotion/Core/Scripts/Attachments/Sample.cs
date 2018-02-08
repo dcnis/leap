@@ -23,6 +23,7 @@ public class Sample : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if (controller.IsConnected) { //controller is a Controller object
 			Frame frame = controller.Frame (); //The latest frame
 			Frame previous = controller.Frame (1); //The previous frame
@@ -35,10 +36,10 @@ public class Sample : MonoBehaviour {
 				if (punchIsThrown(leftHand, rightHand) && !punchIsThrown (leftHandPreviousFrame, rightHandPreviousFrame)) {
 					if((punchForwardLeft() || punchForwardRight ())){
 						if (leftHand.PalmPosition.z < rightHand.PalmPosition.z) {
-							Debug.Log ("JAB!!!");
+							throwPunch ("1");
 							return;
 						} else {
-							Debug.Log ("CROSS!!!");
+							throwPunch ("2");
 							return;
 						}
 					}
@@ -91,4 +92,11 @@ public class Sample : MonoBehaviour {
 		return rightHandPreviousFrame.PalmPosition.z > rightHand.PalmPosition.z;;
 	}
 
+
+
+	static void throwPunch (string punch)
+	{
+		Combination.thrown = string.Concat (Combination.thrown, punch);
+		Debug.Log ("Geschlagene Kombination: " + Combination.thrown);
+	}
 }
