@@ -4,99 +4,91 @@ using UnityEngine;
 using Leap;
 using System;
 
-public class Sample : MonoBehaviour {
+public class Sample : MonoBehaviour
+{
 
 	private Controller controller;
 	private Hand leftHand;
 	private Hand rightHand;
-	private Hand rightHandPreviousFrame;
-	private Hand leftHandPreviousFrame;
-
+	private String punch = "none";
+	const double PALM_Z_VELOCITY = 500.0;
+	const string LEFT_PUNCH = "1";
+	const string RIGHT_PUNCH = "2";
+	private String combination = "";
+	private String punchCombination = "";
+	private bool isCombinationCreating = false;
+	private bool firstPunchThrown = false; 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		controller = new Controller ();
-
-		Debug.Log (string.Format ("Controller = " + controller));
 
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 		if (controller.IsConnected) { //controller is a Controller object
 			Frame frame = controller.Frame (); //The latest frame
-			Frame previous = controller.Frame (1); //The previous frame
 
-
-			getHandsfromFrame (frame);
-			getHandsfromPreviousFrame (previous);
-					
-			if ((leftHandPreviousFrame != null) && (rightHandPreviousFrame != null)){
-				if (punchIsThrown(leftHand, rightHand) && !punchIsThrown (leftHandPreviousFrame, rightHandPreviousFrame)) {
-					if((punchForwardLeft() || punchForwardRight ())){
-						if (leftHand.PalmPosition.z < rightHand.PalmPosition.z) {
-							throwPunch ("1");
-							return;
-						} else {
-							throwPunch ("2");
-							return;
-						}
-					}
-
+			if (frame.Hands.Count > 1) {
+				this.punch = "none";
+				List<Hand> hands = frame.Hands;
+				foreach (Hand hand in hands) {
+					this.evaluatePunch (hand);
 				}
+					
 			}
-				
 		}
 	}
 
-	bool punchIsThrown (Hand _lefthand, Hand _righthand)
+	private void evaluatePunch (Hand hand)
 	{
-		return Math.Abs (Math.Abs (_lefthand.PalmPosition.z) - Math.Abs ((_righthand.PalmPosition.z))) > 80.0f;
-	}
+		if (punch != "none") {
+			return;
+		}
 
 
-	void getHandsfromFrame(Frame frame){
-		if(frame.Hands.Count > 1){
-			List<Hand> hands = frame.Hands;
-			if (hands[0].IsLeft){
-				leftHand = hands [0];
-				rightHand = hands [1];
+		if (hand.PalmVelocity.Dot (new Vector (0, 0, -1)) > PALM_Z_VELOCITY) {
+			if (hand.IsLeft) {
+				punch = LEFT_PUNCH;
+				Combination.thrown = this.punch;
 			} else {
-				rightHand = hands [0];
-				leftHand = hands [1];
+				punch = RIGHT_PUNCH;
+				Combination.thrown = this.punch;
 			}
+//			this.punchCombination = string.Concat (this.punchCombination, punch);
+			Debug.Log (punch);
+			return;
 		}
 
 	}
 
-	void getHandsfromPreviousFrame(Frame frame){
-		if(frame.Hands.Count > 1){
-			List<Hand> hands = frame.Hands;
-			if (hands[0].IsLeft){
-				leftHandPreviousFrame = hands [0];
-				rightHandPreviousFrame = hands [1];
-			} else {
-				rightHandPreviousFrame = hands [0];
-				leftHandPreviousFrame = hands [1];
-			}
-		}
 
-	}
+	private void sendCombination ()
+	{
+//		if (punch != "none") {
+//			return;
+//		}
+//		this.punchCombination = "";
+//		this.isCombinationCreating = true;
+//		this.punchCombination = string.Concat (this.punchCombination, punchCombo [0]);
+//
+//		for (int i = 0; i < punchCombo.Length; i++) {
+//			if (punchCombo.Length > 2) {
+//				if (i == punchCombo.Length){break;}
+//				if (punchCombo [i] != punchCombo [i + 1]) {
+//					this.punchCombination = string.Concat (this.punchCombination, punchCombo [i + 1]);
+//				}
+//			}
+//		}
+//
+		Debug.Log ("PUNCH THROWN IS FOLLOWING: " + this.punch);
 
-	bool punchForwardLeft() {
-		return leftHandPreviousFrame.PalmPosition.z > leftHand.PalmPosition.z;
 }
-
-	bool punchForwardRight(){
-		return rightHandPreviousFrame.PalmPosition.z > rightHand.PalmPosition.z;;
-	}
+		
 
 
-
-	static void throwPunch (string punch)
-	{
-		Combination.thrown = string.Concat (Combination.thrown, punch);
-		Debug.Log ("Geschlagene Kombination: " + Combination.thrown);
-	}
 }
