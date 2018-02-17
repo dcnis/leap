@@ -38,10 +38,9 @@ public class Sample : MonoBehaviour
 			if (frame.Hands.Count > 1) {
 				this.punch = "none";
 				List<Hand> hands = frame.Hands;
-				foreach (Hand hand in hands) {
-					this.evaluatePunch (hand);
-				}
-
+					this.evaluatePunch (hands[0], hands[1]);
+					this.evaluatePunch (hands[1], hands[0]);
+			
 				if (punch == "none") {
 					if (!isRunning) {
 						StartCoroutine ("IsCombinationDone");
@@ -59,7 +58,7 @@ public class Sample : MonoBehaviour
 		}
 	}
 
-	private void evaluatePunch (Hand hand)
+	private void evaluatePunch (Hand hand, Hand otherHand)
 	{
 		if (punch != "none") {
 			return;
@@ -75,7 +74,14 @@ public class Sample : MonoBehaviour
 			this.punchCombination = string.Concat (this.punchCombination, punch);
 			Debug.Log ("My PunchCombination: " +  punchCombination);
 			return;
+		} else if (hand.PalmVelocity.Dot (new Vector (0, 0, 1)) > PALM_Z_VELOCITY &&
+			otherHand.PalmVelocity.Dot (new Vector (0, 0, -1)) < PALM_Z_VELOCITY) {
+			this.punchCombination = string.Concat (this.punchCombination, "|");
+			return;
 		}
+
+
+
 
 	}
 
@@ -106,7 +112,8 @@ public class Sample : MonoBehaviour
 			if(extractCombinationFinished){
 				this.punchCombination = "";
 				Debug.Log ("I DELETED IT!!!!!" + DateTime.Now.ToString ());
-				Debug.Log (string.Format ("SINGLE COMBINATION: {0} at..........{1}", this.combination, DateTime.Now.ToString ()));
+				string replacedString = this.combination.Replace("|", "");
+				Debug.Log (string.Format ("SINGLE COMBINATION: {0} at..........{1}", replacedString, DateTime.Now.ToString ()));
 				this.extractCombinationFinished = false;
 				//HIER MUSS ES AN DEN COMBINATIONMANAGER GESENDET WERDEN
 			}
