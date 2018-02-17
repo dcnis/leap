@@ -19,6 +19,8 @@ public class Sample : MonoBehaviour
 	private bool isCombinationCreating = false;
 	private bool firstPunchThrown = false; 
 	private bool isRunning = false;
+	private bool extractCombinationFinished = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -85,17 +87,7 @@ public class Sample : MonoBehaviour
 		}
 
 		this.isCombinationCreating = true;
-		this.combination = "";
-		this.combination = string.Concat (this.combination, punchCombo [0]);
 
-		for (int i = 0; i < punchCombo.Length; i++) {
-			if (punchCombo.Length > 2) {
-				if (i == punchCombo.Length){break;}
-				if (punchCombo [i] != punchCombo [i + 1]) {
-					this.combination = string.Concat (this.combination, punchCombo [i + 1]);
-				}
-			}
-		}
 
 		Debug.Log ("PUNCH THROWN IS FOLLOWING: " + this.combination);
 		Combination.thrown = this.combination;
@@ -107,14 +99,37 @@ public class Sample : MonoBehaviour
 	IEnumerator IsCombinationDone() {
 		isRunning = true;
 		if(punch == "none"){
-			yield return new WaitForSeconds(2);
+			yield return new WaitForSeconds(1);
 		}
-		if (punch == "none"){
-			this.punchCombination = "";
-			Debug.Log ("I DELETED IT!!!!!");
+		if (punch == "none" && this.punchCombination.Length > 0){
+			this.extractCombination ();
+			if(extractCombinationFinished){
+				this.punchCombination = "";
+				Debug.Log ("I DELETED IT!!!!!" + DateTime.Now.ToString ());
+				Debug.Log (string.Format ("SINGLE COMBINATION: {0} at..........{1}", this.combination, DateTime.Now.ToString ()));
+				this.extractCombinationFinished = false;
+				//HIER MUSS ES AN DEN COMBINATIONMANAGER GESENDET WERDEN
+			}
+
 		}
 		isRunning = false;
+	}
 
+	private void extractCombination(){
+
+		this.combination = "";
+		this.combination = string.Concat (this.combination, this.punchCombination [0]);
+
+		for (int i = 0; i < this.punchCombination.Length; i++) {
+			if (this.punchCombination.Length > 2) {
+				if (i == this.punchCombination.Length - 1){break;}
+				if (this.punchCombination [i] != this.punchCombination [i + 1]) {
+					this.combination = string.Concat (this.combination, this.punchCombination [i + 1]);
+				}
+			}
+		}
+
+		this.extractCombinationFinished = true;
 	}
 
 
