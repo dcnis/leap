@@ -6,9 +6,9 @@ using System;
 
 public class CombinationManagerScript : MonoBehaviour {
 
-	public TextAsset textFile;
-	public string[] textLines;
-	public Text combinationNumber;
+	public TextAsset configFile;
+	public string[] combinationPool;
+	public Text givenCombination;
 	private int currentLine;
 	private int endLine;
 	private Color _green = new Color (0, 255, 0, 1);
@@ -23,45 +23,45 @@ public class CombinationManagerScript : MonoBehaviour {
 
 		currentLine = 0;
 
-		if (textFile != null){
-			textLines = (textFile.text.Split ('\n'));
-			for (int i = 0; i < textLines.Length; i++) {
-				textLines [i] = textLines [i].Replace ("\r", "");
+		if (configFile != null){
+			combinationPool = (configFile.text.Split ('\n'));
+			for (int i = 0; i < combinationPool.Length; i++) {
+				combinationPool [i] = combinationPool [i].Replace ("\r", "");
 			}
 		}
 			
-		endLine = textLines.Length - 1;
+		endLine = combinationPool.Length - 1;
 
-		combinationNumber.supportRichText = true;
+		givenCombination.supportRichText = true;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		combinationNumber.text = textLines[currentLine];
+		givenCombination.text = combinationPool[currentLine];
 
 
-		if(!isRunningFalse && !isRunningCorrect){
-			if (checkCombination (textLines[currentLine])){
-				colorText (_green);
-				if (!isRunningCorrect) StartCoroutine("WaitingTimeCorrect");
-			}
-
-			if (currentLine > endLine){
-				currentLine = 0;
-			}
+		if (checkCombination (combinationPool [currentLine])) {
+			colorText (_green);
+			if (!isRunningCorrect) StartCoroutine("WaitingTimeCorrect");
+		} else if (!checkCombination (combinationPool [currentLine]) && Combination.thrown != ""){
+			colorText(_red);
+			if (!isRunningFalse) StartCoroutine("WaitingTimeWrong");
 		}
 
-
+		if (currentLine >= endLine) {
+			currentLine = 0;
+		}
 	}
+		
 
 	private bool checkCombination(string currentCombo){
 		Debug.Log (string.Format ("Ich vergleiche {0} mit {1} = {2}", currentCombo, Combination.thrown, String.Equals (currentCombo, Combination.thrown)));
 
 		if (String.Equals (currentCombo, Combination.thrown)){
 			return true;
-		}
+		} 
 
 		if (Combination.thrown.Length >= currentCombo.Length) {
 			colorText(_red);
@@ -75,30 +75,25 @@ public class CombinationManagerScript : MonoBehaviour {
 	}
 
 	private void colorText(Color newColor) {
-		combinationNumber.color = newColor;
+		givenCombination.color = newColor;
 	}
-
+		
 	IEnumerator WaitingTimeCorrect() {
 		isRunningCorrect = true;
-		print(Time.time);
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(0.500F);
 		Combination.thrown = "";
-		combinationNumber.color = _white;
+		givenCombination.color = _white;
 		currentLine += 1;
-		print(Time.time);
 		isRunningCorrect = false;
 	}
 
 	IEnumerator WaitingTimeWrong() {
 		isRunningFalse = true;
-		print(Time.time);
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (0.500F);
 		Combination.thrown = "";
-		combinationNumber.color = _white;
-		print(Time.time);
+		givenCombination.color = _white;
 		isRunningFalse = false;
 	}
-
 
 
 }

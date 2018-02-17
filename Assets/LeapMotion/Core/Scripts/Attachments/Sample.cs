@@ -80,27 +80,7 @@ public class Sample : MonoBehaviour
 			return;
 		}
 
-
-
-
 	}
-
-
-	private void sendCombination (string punchCombo)
-	{
-		if (punch != "none") {
-			return;
-		}
-
-		this.isCombinationCreating = true;
-
-
-		Debug.Log ("PUNCH THROWN IS FOLLOWING: " + this.combination);
-		Combination.thrown = this.combination;
-
-		this.isCombinationCreating = false;
-	}
-		
 
 	IEnumerator IsCombinationDone() {
 		isRunning = true;
@@ -112,10 +92,10 @@ public class Sample : MonoBehaviour
 			if(extractCombinationFinished){
 				this.punchCombination = "";
 				Debug.Log ("I DELETED IT!!!!!" + DateTime.Now.ToString ());
-				string replacedString = this.combination.Replace("|", "");
-				Debug.Log (string.Format ("SINGLE COMBINATION: {0} at..........{1}", replacedString, DateTime.Now.ToString ()));
+				this.combination = this.combination.Replace("|", "");
+				Debug.Log (string.Format ("SINGLE COMBINATION: {0} at..........{1}", this.combination, DateTime.Now.ToString ()));
 				this.extractCombinationFinished = false;
-				//HIER MUSS ES AN DEN COMBINATIONMANAGER GESENDET WERDEN
+				Combination.thrown = this.combination;
 			}
 
 		}

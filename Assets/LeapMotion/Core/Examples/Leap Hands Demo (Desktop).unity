@@ -2384,10 +2384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead0900cf53215b4aacf5885d30fc5ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFile: {fileID: 4900000, guid: 1468870848d2e734dbbb199aca9001fc, type: 3}
-  textLines: []
-  combinationBox: {fileID: 1769691524}
-  combinationNumber: {fileID: 1244746165}
+  configFile: {fileID: 4900000, guid: 1468870848d2e734dbbb199aca9001fc, type: 3}
+  combinationPool: []
+  givenCombination: {fileID: 1244746165}
 --- !u!1 &1999294413
 GameObject:
   m_ObjectHideFlags: 0
