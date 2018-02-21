@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BoxingGameSet\Scripts\FlyCamera.cs" />
      <Compile Include="Assets\Combination.cs" />
      <Compile Include="Assets\CombinationManagerScript.cs" />
      <Compile Include="Assets\fantasySpider\FSP_ContinuousRotation.cs" />
@@ -253,6 +254,8 @@
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\InteractionControllerSwitcher.cs" />
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\KabschSolver.cs" />
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\PhysicsCallbacks.cs" />
+     <Compile Include="Assets\RoundData.cs" />
+     <Compile Include="Assets\saveHistoryController.cs" />
      <Compile Include="Assets\Skinner\Internal\CullingStateController.cs" />
      <Compile Include="Assets\Skinner\Internal\SkinnerGlitchTemplate.cs" />
      <Compile Include="Assets\Skinner\Internal\SkinnerInternals.cs" />
@@ -285,6 +288,7 @@
      <None Include="Assets\Skinner\Shader\ParticleSurfaceStandard.shader" />
      <None Include="Assets\LeapMotion\Core\Resources\PassthroughForeground.shader" />
      <None Include="Assets\Skinner\Shader\TrailSurface.cginc" />
+     <None Include="Assets\BoxingGameSet\README.txt" />
      <None Include="Assets\Skinner\Shader\ParticleSurfaceTwoSided.shader" />
      <None Include="Assets\Skinner\Shader\Debug.shader" />
      <None Include="Assets\LeapMotion\Core\Resources\PassthroughBackground.shader" />

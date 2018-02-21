@@ -4,99 +4,121 @@ using UnityEngine;
 using Leap;
 using System;
 
-public class Sample : MonoBehaviour {
+public class Sample : MonoBehaviour
+{
 
 	private Controller controller;
 	private Hand leftHand;
 	private Hand rightHand;
-	private Hand rightHandPreviousFrame;
-	private Hand leftHandPreviousFrame;
-
+	private String punch = "none";
+	const double PALM_Z_VELOCITY = 500.0;
+	const string LEFT_PUNCH = "1";
+	const string RIGHT_PUNCH = "2";
+	private String combination = "";
+	private String punchCombination = "";
+	private bool isCombinationCreating = false;
+	private bool firstPunchThrown = false; 
+	private bool isRunning = false;
+	private bool extractCombinationFinished = false;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		controller = new Controller ();
-
-		Debug.Log (string.Format ("Controller = " + controller));
 
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 		if (controller.IsConnected) { //controller is a Controller object
 			Frame frame = controller.Frame (); //The latest frame
-			Frame previous = controller.Frame (1); //The previous frame
 
-
-			getHandsfromFrame (frame);
-			getHandsfromPreviousFrame (previous);
-					
-			if ((leftHandPreviousFrame != null) && (rightHandPreviousFrame != null)){
-				if (punchIsThrown(leftHand, rightHand) && !punchIsThrown (leftHandPreviousFrame, rightHandPreviousFrame)) {
-					if((punchForwardLeft() || punchForwardRight ())){
-						if (leftHand.PalmPosition.z < rightHand.PalmPosition.z) {
-							throwPunch ("1");
-							return;
-						} else {
-							throwPunch ("2");
-							return;
-						}
+			if (frame.Hands.Count > 1) {
+				this.punch = "none";
+				List<Hand> hands = frame.Hands;
+					this.evaluatePunch (hands[0], hands[1]);
+					this.evaluatePunch (hands[1], hands[0]);
+			
+				if (punch == "none") {
+					if (!isRunning) {
+						StartCoroutine ("IsCombinationDone");
 					}
+				}
 
+
+
+
+			}
+
+
+
+
+		}
+	}
+
+	private void evaluatePunch (Hand hand, Hand otherHand)
+	{
+		if (punch != "none") {
+			return;
+		}
+
+
+		if (hand.PalmVelocity.Dot (new Vector (0, 0, -1)) > PALM_Z_VELOCITY) {
+			if (hand.IsLeft) {
+				punch = LEFT_PUNCH;
+			} else {
+				punch = RIGHT_PUNCH;
+			}
+			this.punchCombination = string.Concat (this.punchCombination, punch);
+			Debug.Log ("My PunchCombination: " +  punchCombination);
+			return;
+		} else if (hand.PalmVelocity.Dot (new Vector (0, 0, 1)) > PALM_Z_VELOCITY &&
+			otherHand.PalmVelocity.Dot (new Vector (0, 0, -1)) < PALM_Z_VELOCITY) {
+			this.punchCombination = string.Concat (this.punchCombination, "|");
+			return;
+		}
+
+	}
+
+	IEnumerator IsCombinationDone() {
+		isRunning = true;
+		if(punch == "none"){
+			yield return new WaitForSeconds(1.2F);
+		}
+		if (punch == "none" && this.punchCombination.Length > 0){
+			this.extractCombination ();
+			if(extractCombinationFinished){
+				this.punchCombination = "";
+				Debug.Log ("I DELETED IT!!!!!" + DateTime.Now.ToString ());
+				this.combination = this.combination.Replace("|", "");
+				Debug.Log (string.Format ("SINGLE COMBINATION: {0} at..........{1}", this.combination, DateTime.Now.ToString ()));
+				this.extractCombinationFinished = false;
+				Combination.thrown = this.combination;
+			}
+
+		}
+		isRunning = false;
+	}
+
+	private void extractCombination(){
+
+		this.combination = "";
+		this.combination = string.Concat (this.combination, this.punchCombination [0]);
+
+		for (int i = 0; i < this.punchCombination.Length; i++) {
+			if (this.punchCombination.Length > 2) {
+				if (i == this.punchCombination.Length - 1){break;}
+				if (this.punchCombination [i] != this.punchCombination [i + 1]) {
+					this.combination = string.Concat (this.combination, this.punchCombination [i + 1]);
 				}
 			}
-				
-		}
-	}
-
-	bool punchIsThrown (Hand _lefthand, Hand _righthand)
-	{
-		return Math.Abs (Math.Abs (_lefthand.PalmPosition.z) - Math.Abs ((_righthand.PalmPosition.z))) > 80.0f;
-	}
-
-
-	void getHandsfromFrame(Frame frame){
-		if(frame.Hands.Count > 1){
-			List<Hand> hands = frame.Hands;
-			if (hands[0].IsLeft){
-				leftHand = hands [0];
-				rightHand = hands [1];
-			} else {
-				rightHand = hands [0];
-				leftHand = hands [1];
-			}
 		}
 
-	}
-
-	void getHandsfromPreviousFrame(Frame frame){
-		if(frame.Hands.Count > 1){
-			List<Hand> hands = frame.Hands;
-			if (hands[0].IsLeft){
-				leftHandPreviousFrame = hands [0];
-				rightHandPreviousFrame = hands [1];
-			} else {
-				rightHandPreviousFrame = hands [0];
-				leftHandPreviousFrame = hands [1];
-			}
-		}
-
-	}
-
-	bool punchForwardLeft() {
-		return leftHandPreviousFrame.PalmPosition.z > leftHand.PalmPosition.z;
-}
-
-	bool punchForwardRight(){
-		return rightHandPreviousFrame.PalmPosition.z > rightHand.PalmPosition.z;;
+		this.extractCombinationFinished = true;
 	}
 
 
 
-	static void throwPunch (string punch)
-	{
-		Combination.thrown = string.Concat (Combination.thrown, punch);
-		Debug.Log ("Geschlagene Kombination: " + Combination.thrown);
-	}
 }
