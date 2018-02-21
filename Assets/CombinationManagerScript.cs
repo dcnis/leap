@@ -12,6 +12,7 @@ public class CombinationManagerScript : MonoBehaviour {
 	public Text givenCombination;
 	private int currentLine;
 	private int endLine;
+	private int randomLine;
 	private Color _green = new Color (0, 255, 0, 1);
 	private Color _red = new Color(255, 0, 0, 1);
 	private Color _white = new Color(255,255,255);
@@ -83,7 +84,11 @@ public class CombinationManagerScript : MonoBehaviour {
 		yield return new WaitForSeconds(0.500F);
 		Combination.thrown = "";
 		givenCombination.color = _white;
-		currentLine = UnityEngine.Random.Range (0, endLine);
+		while(currentLine == randomLine)
+			while(randomLine == currentLine){
+				randomLine= UnityEngine.Random.Range (0, endLine);
+			}
+		currentLine = randomLine;
 		isRunningCorrect = false;
 	}
 

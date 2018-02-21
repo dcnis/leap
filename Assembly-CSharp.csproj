@@ -254,6 +254,8 @@
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\InteractionControllerSwitcher.cs" />
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\KabschSolver.cs" />
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\PhysicsCallbacks.cs" />
+     <Compile Include="Assets\RoundData.cs" />
+     <Compile Include="Assets\saveHistoryController.cs" />
      <Compile Include="Assets\Skinner\Internal\CullingStateController.cs" />
      <Compile Include="Assets\Skinner\Internal\SkinnerGlitchTemplate.cs" />
      <Compile Include="Assets\Skinner\Internal\SkinnerInternals.cs" />
