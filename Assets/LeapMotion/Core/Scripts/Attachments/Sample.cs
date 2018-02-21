@@ -26,6 +26,8 @@ public class Sample : MonoBehaviour
 	{
 		controller = new Controller ();
 
+
+
 	}
 	
 	// Update is called once per frame
@@ -118,6 +120,8 @@ public class Sample : MonoBehaviour
 
 		this.extractCombinationFinished = true;
 	}
+
+
 
 
 

@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class CombinationManagerScript : MonoBehaviour {
 
 	public TextAsset configFile;
+	public Text displayCorrectPunches;
 	public string[] combinationPool;
 	public Text givenCombination;
 	private int currentLine;
@@ -18,10 +19,15 @@ public class CombinationManagerScript : MonoBehaviour {
 	private Color _white = new Color(255,255,255);
 	private bool isRunningCorrect = false;
 	private bool isRunningFalse = false;
+	private int currentCorrectPunches;
+	private int currentWrongPunches;
+
 
 	// Use this for initialization
 	void Start () {
 
+		currentCorrectPunches = 0;
+		currentWrongPunches = 0;
 		currentLine = 0;
 
 		if (configFile != null){
@@ -34,6 +40,8 @@ public class CombinationManagerScript : MonoBehaviour {
 		endLine = combinationPool.Length - 1;
 
 		givenCombination.supportRichText = true;
+
+		StartCoroutine ("RoundTimer");
 		
 	}
 	
@@ -41,6 +49,7 @@ public class CombinationManagerScript : MonoBehaviour {
 	void Update () {
 
 		givenCombination.text = combinationPool[currentLine];
+		displayCorrectPunches.text = currentCorrectPunches.ToString ();
 
 
 		if (checkCombination (combinationPool [currentLine])) {
@@ -82,6 +91,7 @@ public class CombinationManagerScript : MonoBehaviour {
 	IEnumerator WaitingTimeCorrect() {
 		isRunningCorrect = true;
 		yield return new WaitForSeconds(0.500F);
+		currentCorrectPunches++;
 		Combination.thrown = "";
 		givenCombination.color = _white;
 		while(currentLine == randomLine)
@@ -95,9 +105,16 @@ public class CombinationManagerScript : MonoBehaviour {
 	IEnumerator WaitingTimeWrong() {
 		isRunningFalse = true;
 		yield return new WaitForSeconds (0.500F);
+		currentWrongPunches++;
 		Combination.thrown = "";
 		givenCombination.color = _white;
 		isRunningFalse = false;
+	}
+
+	IEnumerator RoundTimer() {
+		yield return new WaitForSeconds(15);
+		saveHistoryController.control.Save(currentCorrectPunches, currentWrongPunches, 0, 0 );
+
 	}
 
 
