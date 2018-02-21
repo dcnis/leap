@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Random = UnityEngine.Random;
 
 public class CombinationManagerScript : MonoBehaviour {
 
@@ -16,7 +17,6 @@ public class CombinationManagerScript : MonoBehaviour {
 	private Color _white = new Color(255,255,255);
 	private bool isRunningCorrect = false;
 	private bool isRunningFalse = false;
-
 
 	// Use this for initialization
 	void Start () {
@@ -83,7 +83,7 @@ public class CombinationManagerScript : MonoBehaviour {
 		yield return new WaitForSeconds(0.500F);
 		Combination.thrown = "";
 		givenCombination.color = _white;
-		currentLine += 1;
+		currentLine = UnityEngine.Random.Range (0, endLine);
 		isRunningCorrect = false;
 	}
 

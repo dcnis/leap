@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BoxingGameSet\Scripts\FlyCamera.cs" />
      <Compile Include="Assets\Combination.cs" />
      <Compile Include="Assets\CombinationManagerScript.cs" />
      <Compile Include="Assets\fantasySpider\FSP_ContinuousRotation.cs" />
@@ -285,6 +286,7 @@
      <None Include="Assets\Skinner\Shader\ParticleSurfaceStandard.shader" />
      <None Include="Assets\LeapMotion\Core\Resources\PassthroughForeground.shader" />
      <None Include="Assets\Skinner\Shader\TrailSurface.cginc" />
+     <None Include="Assets\BoxingGameSet\README.txt" />
      <None Include="Assets\Skinner\Shader\ParticleSurfaceTwoSided.shader" />
      <None Include="Assets\Skinner\Shader\Debug.shader" />
      <None Include="Assets\LeapMotion\Core\Resources\PassthroughBackground.shader" />

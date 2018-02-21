@@ -85,7 +85,7 @@ public class Sample : MonoBehaviour
 	IEnumerator IsCombinationDone() {
 		isRunning = true;
 		if(punch == "none"){
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(1.2F);
 		}
 		if (punch == "none" && this.punchCombination.Length > 0){
 			this.extractCombination ();

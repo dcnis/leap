@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/LeapMotion/Core/Examples/Leap Hands Demo (Desktop).unity
+- path: Assets/BoxingGameSet/ExampleScene.unity
   isLoaded: 1
   isActive: 1
