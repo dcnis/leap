@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Leap;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Sample : MonoBehaviour
 {

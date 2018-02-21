@@ -9,6 +9,7 @@ public class CombinationManagerScript : MonoBehaviour {
 
 	public TextAsset configFile;
 	public Text displayCorrectPunches;
+	public Text displayWrongPunches;
 	public string[] combinationPool;
 	public Text givenCombination;
 	private int currentLine;
@@ -21,6 +22,9 @@ public class CombinationManagerScript : MonoBehaviour {
 	private bool isRunningFalse = false;
 	private int currentCorrectPunches;
 	private int currentWrongPunches;
+	private HistoryData currentProfileData;
+	public GameObject gamePanel;
+	public GameObject roundOverPanel;
 
 
 	// Use this for initialization
@@ -42,6 +46,8 @@ public class CombinationManagerScript : MonoBehaviour {
 		givenCombination.supportRichText = true;
 
 		StartCoroutine ("RoundTimer");
+		gamePanel.SetActive (true);
+		roundOverPanel.SetActive (false);
 		
 	}
 	
@@ -50,6 +56,7 @@ public class CombinationManagerScript : MonoBehaviour {
 
 		givenCombination.text = combinationPool[currentLine];
 		displayCorrectPunches.text = currentCorrectPunches.ToString ();
+		displayWrongPunches.text = currentWrongPunches.ToString ();
 
 
 		if (checkCombination (combinationPool [currentLine])) {
@@ -113,7 +120,9 @@ public class CombinationManagerScript : MonoBehaviour {
 
 	IEnumerator RoundTimer() {
 		yield return new WaitForSeconds(15);
-		saveHistoryController.control.Save(currentCorrectPunches, currentWrongPunches, 0, 0 );
+		gamePanel.SetActive (false);
+		roundOverPanel.SetActive (true);
+		HistoryController.control.Save(currentCorrectPunches, currentWrongPunches, 0, 0 );
 
 	}
 

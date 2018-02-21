@@ -56,6 +56,7 @@
      <Compile Include="Assets\Combination.cs" />
      <Compile Include="Assets\CombinationManagerScript.cs" />
      <Compile Include="Assets\fantasySpider\FSP_ContinuousRotation.cs" />
+     <Compile Include="Assets\HistoryController.cs" />
      <Compile Include="Assets\HistoryData.cs" />
      <Compile Include="Assets\LeapMotion\Core\Scripts\Algorithms\SlidingMax.cs" />
      <Compile Include="Assets\LeapMotion\Core\Scripts\Algorithms\SmoothedFloat.cs" />
@@ -258,7 +259,6 @@
      <Compile Include="Assets\LeapMotion\Modules\InteractionEngine\Scripts\Utility\PhysicsCallbacks.cs" />
      <Compile Include="Assets\ProfilesData.cs" />
      <Compile Include="Assets\RoundData.cs" />
-     <Compile Include="Assets\saveHistoryController.cs" />
      <Compile Include="Assets\Skinner\Internal\CullingStateController.cs" />
      <Compile Include="Assets\Skinner\Internal\SkinnerGlitchTemplate.cs" />
      <Compile Include="Assets\Skinner\Internal\SkinnerInternals.cs" />
