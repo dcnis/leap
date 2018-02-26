@@ -20,10 +20,15 @@ public class CombinationManagerScript : MonoBehaviour {
 	private Color _white = new Color(255,255,255);
 	private bool isRunningCorrect = false;
 	private bool isRunningFalse = false;
+	public Text display_correctPunches;
+	public Text display_wrongPunches;
+	public Text display_reactionTime;
 	private int currentCorrectPunches;
 	private int currentWrongPunches;
+	private float reactionTime;
 	public GameObject gamePanel;
 	public GameObject roundOverPanel;
+	public int ROUND_TIME = 5;
 
 
 	// Use this for initialization
@@ -125,10 +130,15 @@ public class CombinationManagerScript : MonoBehaviour {
 	}
 
 	IEnumerator RoundTimer() {
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(ROUND_TIME);
+		display_wrongPunches.text = currentWrongPunches.ToString ();
+		display_correctPunches.text = currentCorrectPunches.ToString ();
+		reactionTime = ((float)currentCorrectPunches / (float)ROUND_TIME);
+		display_reactionTime.text = reactionTime.ToString ();
 		gamePanel.SetActive (false);
 		roundOverPanel.SetActive (true);
 		DataController.control.Save(currentCorrectPunches, currentWrongPunches);
+
 		Debug.Log ("Successfully Saved RoundData");
 
 	}
