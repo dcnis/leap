@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class ProfileData 
 {
 
-	public HistoryData[] allHistoryData;
+	public List<HistoryData> allHistoryData;
 
 }

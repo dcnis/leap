@@ -1,10 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\LeapMotion\Core\Scripts\Attachments\Sample.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Assets\ProfileData.cs">
     <Files>
-      <File FileName="Assets\LeapMotion\Core\Scripts\Attachments\Sample.cs" Line="88" Column="37" />
-      <File FileName="Assets\CombinationManagerScript.cs" Line="19" Column="38" />
-      <File FileName="Assets\Combination.cs" Line="1" Column="1" />
+      <File FileName="Assets\LeapMotion\Core\Scripts\Attachments\Sample.cs" Line="30" Column="1" />
+      <File FileName="Assets\CombinationManagerScript.cs" Line="131" Column="46" />
+      <File FileName="Assets\Combination.cs" Line="1" Column="26" />
+      <File FileName="Assets\RoundData.cs" Line="12" Column="31" />
+      <File FileName="Assets\HistoryController.cs" Line="67" Column="100" />
+      <File FileName="Assets\HistoryData.cs" Line="5" Column="1" />
+      <File FileName="Assets\Assets\ProfileData.cs" Line="8" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

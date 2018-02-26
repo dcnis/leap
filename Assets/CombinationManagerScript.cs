@@ -25,6 +25,7 @@ public class CombinationManagerScript : MonoBehaviour {
 	private HistoryData currentProfileData;
 	public GameObject gamePanel;
 	public GameObject roundOverPanel;
+	public HistoryData myHistory;
 
 
 	// Use this for initialization
@@ -48,6 +49,7 @@ public class CombinationManagerScript : MonoBehaviour {
 		StartCoroutine ("RoundTimer");
 		gamePanel.SetActive (true);
 		roundOverPanel.SetActive (false);
+
 		
 	}
 	
@@ -119,10 +121,11 @@ public class CombinationManagerScript : MonoBehaviour {
 	}
 
 	IEnumerator RoundTimer() {
-		yield return new WaitForSeconds(15);
+		yield return new WaitForSeconds(5);
 		gamePanel.SetActive (false);
 		roundOverPanel.SetActive (true);
-		HistoryController.control.Save(currentCorrectPunches, currentWrongPunches, 0, 0 );
+		DataController.control.Save(currentCorrectPunches, currentWrongPunches);
+		Debug.Log ("Successfully Saved RoundData");
 
 	}
 
