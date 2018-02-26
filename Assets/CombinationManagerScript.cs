@@ -22,10 +22,8 @@ public class CombinationManagerScript : MonoBehaviour {
 	private bool isRunningFalse = false;
 	private int currentCorrectPunches;
 	private int currentWrongPunches;
-	private HistoryData currentProfileData;
 	public GameObject gamePanel;
 	public GameObject roundOverPanel;
-	public HistoryData myHistory;
 
 
 	// Use this for initialization
@@ -50,7 +48,13 @@ public class CombinationManagerScript : MonoBehaviour {
 		gamePanel.SetActive (true);
 		roundOverPanel.SetActive (false);
 
-		
+		HistoryData history = DataController.control.profile.getAllRoundsFromProfile ("Dennis");
+		if(history != null){
+			foreach(RoundData round in history) {
+				Debug.Log (string.Format ("Round#: " + round.date));
+			}
+		}
+
 	}
 	
 	// Update is called once per frame

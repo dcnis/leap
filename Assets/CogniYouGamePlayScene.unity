@@ -1344,8 +1344,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c592f16851a620743868a31232613370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _modelsParent: {fileID: 0}
-  ModelPool: []
+  _modelsParent: {fileID: 1325830795}
+  ModelPool:
+  - GroupName: Graphics_Hands
+    _handPool: {fileID: 0}
+    LeftModel: {fileID: 525709306}
+    IsLeftToBeSpawned: 0
+    RightModel: {fileID: 1944805179}
+    IsRightToBeSpawned: 0
+    modelList: []
+    modelsCheckedOut: []
+    IsEnabled: 1
+    CanDuplicate: 1
+    HandPostProcesses:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Leap.Unity.Hands+HandEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  - GroupName: Physics_Hands
+    _handPool: {fileID: 0}
+    LeftModel: {fileID: 795409495}
+    IsLeftToBeSpawned: 0
+    RightModel: {fileID: 867040963}
+    IsRightToBeSpawned: 0
+    modelList: []
+    modelsCheckedOut: []
+    IsEnabled: 1
+    CanDuplicate: 1
+    HandPostProcesses:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Leap.Unity.Hands+HandEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!114 &320940793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3443,7 +3473,7 @@ RectTransform:
   m_GameObject: {fileID: 700986774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.8300003}
-  m_LocalScale: {x: 0.0017237435, y: 0.0017237435, z: 0.0017237435}
+  m_LocalScale: {x: 0.0017206488, y: 0.0017206488, z: 0.0017206488}
   m_Children:
   - {fileID: 2112980095}
   - {fileID: 1967691446}
@@ -3651,7 +3681,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 759670530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 181.49988, y: 92.41795, z: -0.00006928159}
+  m_LocalPosition: {x: 181.49988, y: 92.91795, z: -0.00006928159}
   m_LocalScale: {x: 1.3157896, y: 1.6393442, z: 1}
   m_Children: []
   m_Father: {fileID: 2112980095}
@@ -4709,7 +4739,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1150420552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -175.1, y: 92.42, z: 0.000025645}
+  m_LocalPosition: {x: -175.1, y: 92.92, z: 0.000025645}
   m_LocalScale: {x: 1.3152933, y: 1.6387259, z: 0.99962354}
   m_Children: []
   m_Father: {fileID: 2112980095}
@@ -8233,7 +8263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1902866737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f66a4806b2ddc540b2c372d190feaff, type: 3}
+  m_Script: {fileID: 11500000, guid: 175b290816c79064991a7ea64cb0dd26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1902866739

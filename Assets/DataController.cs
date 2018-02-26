@@ -11,7 +11,10 @@ public class DataController : MonoBehaviour {
 
 	public static DataController control;
 
-	List<HistoryData> history = new List<HistoryData>();
+	public ProfileData profile = new ProfileData();
+
+	public string profileName; 
+	public FileStream fileStream;
 
 	private const string path = @"c:\temp\MyTest.txt";
 
@@ -25,28 +28,9 @@ public class DataController : MonoBehaviour {
 		}
 	}
 
-
-	public void SaveValue(){
-
+	void Start() {
 		if (File.Exists (path)) {
-			File.Delete (path);
-		}
-
-		BinaryFormatter bf = new BinaryFormatter ();
-		FileStream file = File.Create (path);
-		bf.Serialize (file, "Das ist ein Test");
-		file.Close ();
-		Debug.Log ("Successfully saved Value!");
-
-	}
-		public void LoadValue() 
-	{
-		if (File.Exists (path)) {
-			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open (path, FileMode.Open);
-			string value =  (string)bf.Deserialize (file);
-			file.Close ();
-			Debug.Log ("Das ist der geladene Wert: " + value);
+			this.Load ();
 		}
 	}
 
@@ -59,37 +43,42 @@ public class DataController : MonoBehaviour {
 
 
 	public void Save(int correctCombinations, int wrongCombinations) {
+
+		profile.AddProfile ("Dennis", 2);
+		profile.AddRound ("Dennis", 10, 10);
+
 		BinaryFormatter bf = new BinaryFormatter ();
-		FileStream file = File.Create (Application.persistentDataPath + "/AllData.dat");
-
-		history.Add (new HistoryData() {HistoryName = "Dennis", HistoryId = 1 });
-		history.Find (delegate(HistoryData item) {return item.HistoryName == "Dennis"; }).allRoundData.Add (new RoundData () {
-			totalCorrectCombinations = correctCombinations,
-			totalWrongCombintations = wrongCombinations,
-			meanReaktionTime = 0.8,
-		});
-				
-		bf.Serialize (file, history);
-		file.Close ();
-		Debug.Log("Successfully saved!");
-	}
-
-	public void Load() {
-
-		if (File.Exists (Application.persistentDataPath + "/AllData.dat")) {
-			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open (Application.persistentDataPath + "/AllData.dat", FileMode.Open);
-			ProfileData data = (ProfileData)bf.Deserialize (file);
+		if (!File.Exists (path)){
+			FileStream file = File.Create (path);
+			bf.Serialize (file, profile);
 			file.Close ();
-
-
-			Debug.Log("Successfully loaded!");
+		} else {
+			FileStream file = File.Open (path, FileMode.Open);
+			bf.Serialize (file, profile);
+			file.Close ();
 		}
+	
+		Debug.Log("Profile Data: " + profile.ToString ());
+		Debug.Log("Successfully saved ProfileData!");
+
+
+		HistoryData history = DataController.control.profile.getAllRoundsFromProfile ("Dennis");
+		if (history != null){
+			foreach(RoundData round in history) {
+				Debug.Log (string.Format ("Round#: " + round.date));
+			}
+		}
+
 	}
 
-	//public HistoryData getHistory(int id){
-		//return ProfileData [id];
-	//}
+	public void Load ()
+	{
+		BinaryFormatter bf = new BinaryFormatter ();
+		FileStream file = File.Open (path, FileMode.Open);
+		this.profile = (ProfileData)bf.Deserialize (file);
+		Debug.Log ("Successfully loaded all Profiles!");
+		file.Close ();	
+	}
 
 
 }
